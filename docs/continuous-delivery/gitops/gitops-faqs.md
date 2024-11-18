@@ -165,34 +165,7 @@ Each resource in our UI has a three dot "kebab menu" that allows you sync or del
 
 In Harness GitOps, you can achieve a similar approach to ArgoCD by using YAML manifests to define the GitOps applications declaratively. In the GitOps model, Harness allows you to manage the infrastructure and applications as code, keeping the boundaries between Harness metadata and the ArgoCD application clear. 
 
-Here’s how you can create (declaratively) a Harness GitOps Application using YAML manifests while maintaining the separation the customer is looking for:
-
-1. Harness GitOps Application YAML:
-- Define the Harness GitOps application in a YAML manifest. This YAML file will include the necessary Harness metadata (like environment, service, etc.) to manage the deployment.
-- The GitOps application will point to a repository containing the ArgoCD portion (i.e., the ArgoCD Application files).
-
-**Harness YAML**
-```
-apiVersion: harness.io/v1alpha1
-kind: GitOpsApplication
-metadata:
-  name: my-harness-gitops-app
-  namespace: harness-namespace
-spec:
-  repoURL: https://github.com/org/repo
-  targetRevision: main
-  path: apps/my-app  # Directory where your ArgoCD Application YAML resides
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-  destination:
-    namespace: my-app-namespace
-    server: https://kubernetes.default.svc
-```
-
-2. Separate ArgoCD Application Definition:
-- The actual ArgoCD Application resource will reside in the repo that your Harness GitOps application points to. This keeps a clean separation between Harness’ metadata and the ArgoCD application logic.
+The actual ArgoCD Application resource will reside in the repo that your Harness GitOps application points to. This keeps a clean separation between Harness’ metadata and the ArgoCD application logic.
 
 **Argo Application YAML**
 ```
@@ -200,7 +173,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: my-argo-app
-  namespace: argocd
+  namespace: argo-cd
 spec:
   project: default
   source:
@@ -215,3 +188,32 @@ spec:
       prune: true
       selfHeal: true
 ```
+
+**apiVersion & Kind**:
+- apiVersion: argoproj.io/v1alpha1
+- kind: Application These define the resource type as an ArgoCD Application, which ArgoCD uses to track and deploy Kubernetes resources from Git.
+
+**Metadata**:
+- name: my-argo-app - This gives your ArgoCD application a name 
+- namespace: argocd - specifies the namespace in which the application is deployed.
+
+**Spec**:
+- Project: Points to the ArgoCD project (default is commonly used).
+
+**Source**:
+- repoURL: The URL of the Git repository where the app's Kubernetes resources live.
+- path: The directory in the repo that contains the Kubernetes manifests for your application.
+- targetRevision: The Git revision (branch or commit) you want ArgoCD to track.
+
+**Destination**:
+- server: The Kubernetes API server URL.
+- namespace: The namespace in which to deploy the resources.
+
+**SyncPolicy**:
+- automated: Specifies that ArgoCD will automatically sync the app (prune resources and self-heal if necessary).
+
+Once the ArgoCD Application manifest is in place in your Git repository, you can configure Harness GitOps to manage synchronization between the Git repository and the Kubernetes cluster.
+
+To do so, you need to create a GitOps Application in Harness that points to the same repository and path where the ArgoCD Application is defined. For more details on creating an application, refer [Harness CD GitOps tutorial](/docs/continuous-delivery/gitops/get-started/harness-cd-git-ops-quickstart#step-1-add-a-harness-gitops-agent)
+
+Harness GitOps will now automatically monitor changes in the specified Git repository and path (e.g., apps/my-app/argocd), and it will trigger ArgoCD to sync the changes to your Kubernetes cluster.
