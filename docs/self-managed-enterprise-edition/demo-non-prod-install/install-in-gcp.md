@@ -70,7 +70,7 @@ To reserve an external static IP in GCP, do the following:
 
 5. Open the `override-demo.yaml` file in a file editor.
 
-6. Add your external static IP address in the following fields.
+6. Add your external static IP address or domain url in the following fields.
 
    ```yaml
    loadbalancerURL: http://xx.xx.xx.xx
