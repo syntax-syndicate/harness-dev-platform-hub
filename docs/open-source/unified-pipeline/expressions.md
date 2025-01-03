@@ -6,14 +6,119 @@ sidebar_position: 30
 
 [Harness Expressions] are getting an update. The old syntax involved using `<+ >` to signify a Harness expression, but now the platform is switching to standardize on the Common Expression Language or CEL. To learn more about CEL, go to the [CEL spec](https://github.com/google/cel-spec).
 
-In this document, we will go over the parity matrix between old expressions and new, as well as point at key new functionalities. 
+Both types of Harness Expressions will be supported, but since CEL is forming into the industry standard, CEL will be the recommended format going forward.  
+
+For a partial list of expressions and their parity from Harness NextGen to Harness Unified Pipeline, go to the [parity matrix](#parity-matrix) at the bottom of the page.
+
+## Harness CEL Expression Support
+
+CEL offers many benefits that you can utilize in your pipelines as well as carrying over many of the benefits of NG Expressions. Read this topic to learn how to use CEL expressions.
+
+### Basic Expression Syntax
+
+Every expression must be enclosed in `${{ }}`. This will let Harness know to use what's inside as an expression and not a generic string. 
+
+#### Example: Set the pipeline name as an environment variable
+
+If you wanted to store the pipeline name as an environment variable you could do:
+
+```yaml
+env:
+    PIPELINE_NAME: ${{ pipeline.name }}
+```
+
+### Operators
+
+CEL allows you to use operators to compare expressions to each other.
+
+#### Supported Arithmetic Operators
+
+| Operator | Description   |
+|----------|---------------|
+| `+`        | Addition      |
+| `-`        | Subtraction   |
+| `*`        | Multipication |
+| `/`        | Division      |
+
+#### Supported Comparison and Logical Operators
+
+| Operator | Description              |
+|----------|--------------------------|
+| `==  `     | Equals                   |
+| `!=  `     | Not equals               |
+| `<   `     | Less than                |
+| `<=  `     | Less than or equal to    |
+| `>   `     | Greater than             |
+| `>=  `     | Greater than or equal to |
+| `&&  `     | And                      |
+| `\|\|`     | Or                       |
+
+
+#### Example: Using Operators
+
+```yaml
+env: 
+    isMain: ${{ pipeline.branch == 'main' }}
+```
+
+The simple expression above evaluates to `true` if the pipeline branch is equal to `main` and false otherwise. 
+
+### Functions
+
+Harness offers the use of built in functions that will help you evaluate and use your expressions. Each function follows the format of ??? [Q]
+
+<!-- `<literal>.<function_name>(<inputs)`. and can return any of the literal types supported by CEL.  -->
+
+#### Supported Functions
+
+[ADD FUNCTION SIGNATURES AND EXAMPLES]
+
+| Function      | Function Signature | Return Type       | Example |
+|---------------|--------------------|-------------------|---------|
+| `startsWith`  |                    | Boolean           |         |
+| `endsWith`    |                    | Boolean           |         |
+| `contains`    |                    | Boolean           |         |
+| `toUpperCase` |                    | String            |         |
+| `toLowerCase` |                    | String            |         |
+| `join`        |                    | String            |         |
+| `format`      |                    | String            |         |
+| `replace`     |                    | String            |         |
+| `trim`        |                    | String            |         |
+| `split`       |                    | String            |         |
+| `min`         |                    | Number            |         |
+| `max`         |                    | Number            |         |
+| `length`      |                    | Number            |         |
+| `toJSON`      |                    | String            |         |
+| `fromJSON`    |                    | Array of literals |         |
+
+
+### Contextual Data Access
+
+Harness CEL expressions will also you to access information form various contexts. Each context can be dereferenced with the `.` operator to access the data inside. 
+
+#### Supported Contexts
+
+| Context    | Description                                                                                 |
+|------------|---------------------------------------------------------------------------------------------|
+| `pipeline` | Provides information about the pipeline, including variables defined in the pipeline.       |
+| `env`      | Provides information about environment variables set in the workflow or runner environment. |
+| `stage`    | Provides information about the current job, such as its status and outputs.                 |
+| `steps`    | Provides details about individual steps within the current job.                             |
+
+#### Example: Using Contexts
+
+If I wanted to access the name of the current job/stage I could use the expression:
+
+```
+${{ stage.name }}
+```
 
 ## Parity Matrix
 
 | Component         | NG Expression                                                         | Github Actions Expression                  | Unified Pipeline Expression                                             |
 | ----------------- | --------------------------------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------- |
-| Pipeline          | `<+pipeline.identifier>`                                            | `jobs.<job_id>`                              | `$ {{ [pipeline.i](http://pipeline.id/)d }} `                         |
-|                   | `<+pipeline.name>`                                                  | `github.workflow`                            | `$ {{ [pipeline.nam](http://pipeline.name/)e }}`                      |
+| Pipeline          | `<+pipeline.identifier>`                                            | `jobs.<job_id>`                              | `$ {{ pipeline.id }} `                         |
+|                   | `<+pipeline.name>`                                                  | `github.workflow`                            | `$ {{ pipeline.name }}`                      |
 |                   | `<+pipeline.tags>`                                                  | NA                                         | `$ {{ pipeline.tags }}`                                                |
 |                   | `<+pipeline.executionId>`                                           | `github.run_number` \| `github.run_id`         | `$ {{ pipeline.execution_id }}`                                       |
 |                   | `<+pipeline.resumedExecutionId>`                                    | NA                                         | `$ {{ pipeline.resume_execution_id }}`                                 |
@@ -64,10 +169,10 @@ In this document, we will go over the parity matrix between old expressions and 
 |                   | `<+manifests.MANIFEST_ID.helm.metadata.bucketName>`                 | NA                                         | `$ {{ manifest.bucket_name }}`                                         |
 |                   | `<+manifests.MANIFEST_ID.helm.metadata.commitId>`                   | NA                                         | `$ {{ manifest.commit_id }}`                                           |
 |                   | `<+manifests.MANIFEST_ID.helm.metadata.branch>`                     | NA                                         | `$ {{ manifest.branch }}`                                              |
-| Stage             | `<+stage.name>`                                                     | `jobs.<job_id>.name`                         | `$ {[{stage.nam](http://stage.name/)e}}`                              |
+| Stage             | `<+stage.name>`                                                     | `jobs.<job_id>.name`                         | `$ {{stage.name}}`                              |
 |                   | `<+stage.description>`                                              | `jobs.<job_id>.outputs.<output_id>`          | `$ {{ stage.description }}`                                           |
 |                   | `<+stage.tags>`                                                     | NA                                         | `$ {{ stage.tags }}`                                                   |
-|                   | `<+stage.identifier>`                                               | NA                                         | `$ {{ [stage.i](http://stage.id/)d }}`                                 |
+|                   | `<+stage.identifier>`                                               | NA                                         | `$ {{ stage.id }}`                                 |
 |                   | `<+stage.output.hosts>`                                             | `jobs.<job_id>.outputs.<output_id>`          | ` $ {{ stage.output.hosts }}`                                         |
 |                   | `<+stage.executionUrl>`                                             | `jobs.<job_id>.outputs.<output_id>`          | `$ {{ stage.execution_url }}`                                         |
 |                   | `<+stage.delegateSelectors>`                                        | NA                                         | `$ {{ stage.delegate_selectors }}`                                     |
@@ -77,8 +182,8 @@ In this document, we will go over the parity matrix between old expressions and 
 |                   | `<+<+strategy.node>.get("STRATEGY_NODE_IDENTIFIER").currentStatus>` | `github.action_status` \| `job.status`         | ``                                                                    |
 | Step Group        | `<+stepGroup.variables>`                                            | `${{ vars.USE_VARIABLES }}`                  | `$ {{ group.steps.variables.var_name }}`                              |
 |                   | `<+stepGroup.getParentStepGroup>`                                   | NA                                         | `$ {{ group.steps.variables.var_name }}`                               |
-| Step              | `<+step.name>`                                                      | `jobs.<job_id>.steps.name`                   | `$ {[{step.nam](http://step.name/)e }}`                               |
-|                   | `<+step.identifier>`                                                | NA                                         | `$ {{ [step.i](http://step.id/)d }}`                                  |
+| Step              | `<+step.name>`                                                      | `jobs.<job_id>.steps.name`                   | `$ {{step.name }}`                               |
+|                   | `<+step.identifier>`                                                | NA                                         | `$ {{ step.id }}`                                  |
 |                   | `<+step.executionUrl>`                                              | `jobs.<job_id>.outputs.<output_id>`          | `$ {{ step.execution_url }}`                                          |
 |                   | `<+steps.STEP_ID.retryCount>`                                       | `github.run_attempt`                         | ``                                                                    |
 | Trigger           | `<+trigger.type>`                                                   | NA                                         | `$ {{ trigger.type }}`                                                 |

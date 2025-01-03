@@ -30,4 +30,14 @@ StepQueue and StepTemplate still not defined.
 
 Add [*] to all steps
 
+Separate out Variables and Contexts from the expressions doc. 
+
+Is the parity matrix really necessary? Maybe separate it out. 
+
+Add codebase to contexts (Ask rohan)
+
+Are the supported functions a partial list, or do we support all CEL functions? (Ask Rohan)
+
+What is the syntax of harness CEL functions going to be?
+
 ## Github compatibility
