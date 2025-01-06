@@ -91,7 +91,6 @@ Harness offers the use of built in functions that will help you evaluate and use
 | `toJSON`      |                    | String            |         |
 | `fromJSON`    |                    | Array of literals |         |
 
-
 ### Contextual Data Access
 
 Harness CEL expressions will also you to access information form various contexts. Each context can be dereferenced with the `.` operator to access the data inside. 
