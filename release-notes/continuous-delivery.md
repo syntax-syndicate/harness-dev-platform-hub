@@ -47,7 +47,7 @@ import Kustomizedep from '/release-notes/shared/kustomize-3-4-5-deprecation-noti
 
 ## January 2025
 
-### Version 1.73.5
+### Version 1.73.6
 
 #### New features and enhancements
 
@@ -55,9 +55,12 @@ import Kustomizedep from '/release-notes/shared/kustomize-3-4-5-deprecation-noti
 
 - Users can now add input variables in the Email step. (**CDS-101651, ZD-66735,67864**)
 
+- Users can now fetch attributes from JSON files marked as secrets and have them masked in the pipeline execution page outputs and execution logs by setting the output variable type to `secret`. (**CDS-103225, ZD-103225**)
+
 #### Breaking Changes
 
 - Admin users can now hide unsubscribed modules from the sidebar, ensuring only subscribed modules are visible to team members. This helps streamline the user experience and prevents access to steps or features from unsubscribed modules. Visit Account Settings to manage module visibility for your Org. Currently, this feature is behind the feature flag `CDS_NAV_MODULE_VISIBILITY`. Contact [Harness Support](mailto:support@harness.io) to enable the feature. (**PIPE-20641, ZD-53621,66260**)
+![](./static/module_visibility.png)
 
 #### Fixed Issues
 
