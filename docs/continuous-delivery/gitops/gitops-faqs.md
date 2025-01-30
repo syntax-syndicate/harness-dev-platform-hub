@@ -324,3 +324,20 @@ Enhancement requests for GitOps RBAC improvements have been submitted, but curre
 
 ### How can a user manage Argo CD Application Sets using a single Argo CD Agent?
 Argo CD Application Sets are managed by a single Argo CD Agent, so a single AppSet cannot cover multiple clusters. Users can set up separate AppSets in different agents for different environments.
+
+### How to handle unexpected behavior when linking a GitOps cluster to an environment if a link already exists?
+Unlike other entities like secrets/connectors, the GitOps cluster linking process creates a new entry instead of updating an existing one. 
+
+### How can users set up GitOps correctly and remove error logs?
+If permissions and setup are correct, errors often resolve once pipelines are fully configured and executed through triggers. Users should verify role assignments and execution workflows.
+
+### How can users improve the experience when using existing ArgoCD with prefixed services?
+If a GitOps agent fails to connect, ensure correct environment variables for Redis and Repo settings. Validate service configurations and Helm values.
+
+
+### How to fix GitOps agent failing to connect to the GitOps server?
+If `{AGENT_HTTP_TARGET}` is incorrectly set in the agent config map, update it to the correct server address and restart the agent.
+
+### Why are GitOps apps not deploying declaratively?
+Using a Chart.yaml per app is cumbersome. Consider using a single app.yaml file with Helm for managing multiple applications
+

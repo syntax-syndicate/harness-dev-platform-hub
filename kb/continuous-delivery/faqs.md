@@ -3202,7 +3202,7 @@ No, pull request events do not occur on the forked repository.
 
 You can create a custom trigger to initiate a pipeline for a fork event. First, enable the Webhook setting to capture the event logs for the fork. Once enabled, you will be able to capture the event logs for every fork on the repository, and based on the payload, trigger conditions can be set.
 
-### How to create a file in Harness File Store via Shell Script?
+#### How to create a file in Harness File Store via Shell Script?
 
 To create a File Store from a Shell Script, you can use the [Harness API](https://apidocs.harness.io/tag/File-Store#operation/create).
 
@@ -3294,7 +3294,6 @@ As per the current design, there's no native step for this but user can write a 
 #### Why I am not able to see rollback options in custom stage?
 
 The rollback option is only available for the deployment stage, So you can only be able to see in the deployment stage.
-
 
 ### Infrastructure provisioning FAQs
 

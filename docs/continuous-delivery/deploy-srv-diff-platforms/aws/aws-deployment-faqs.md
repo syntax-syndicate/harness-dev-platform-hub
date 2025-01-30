@@ -645,3 +645,9 @@ Users can:
 - Use the Bitbucket API to retrieve necessary files.
 - Implement an AWS CLI-based deployment script.
 - Automate the process via a Harness pipeline step.
+
+### How to create a custom script to access Bitbucket repositories and deploy using AWS CLI?
+A Python or shell script can fetch deployment files and use AWS CLI to trigger deployments. Ensure the required AWS permissions are set.
+
+### How to use the API to create a trigger for ECS or ECR artifacts?
+Ensure that the correct `artifactRef` is configured in the request. Refer to API documentation for proper syntax.
