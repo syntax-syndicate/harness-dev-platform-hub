@@ -522,8 +522,8 @@ This release includes the following Harness module and component versions.
 
 | **Name**                  | **Version**                                                                                  |
 |---------------------------|----------------------------------------------------------------------------------------------|
-| Helm Chart                | [0.24.2](https://github.com/harness/helm-charts/releases/tag/harness-0.24.0)                 |
-| Air Gap Bundle            | [0.24.2](https://console.cloud.google.com/storage/browser/smp-airgap-bundles/harness-0.24.0) |
+| Helm Chart                | [0.24.3](https://github.com/harness/helm-charts/releases/tag/harness-0.24.0)                 |
+| Air Gap Bundle            | [0.24.3](https://console.cloud.google.com/storage/browser/smp-airgap-bundles/harness-0.24.0) |
 | NG Manager                | 1.68.8                                                                                       |
 | CI Manager                | 1.57.5                                                                                       |
 | Pipeline Service          | 1.107.4                                                                                      |
@@ -546,20 +546,20 @@ Some admins might not have Google account access to download air gap bundles. As
 
 ```
 gsutil -m cp \
-  "gs://smp-airgap-bundles/harness-0.24.2/ccm_images.tgz" \
-  "gs://smp-airgap-bundles/harness-0.24.2/cdng_images.tgz" \
-  "gs://smp-airgap-bundles/harness-0.24.2/ce_images.tgz" \
-  "gs://smp-airgap-bundles/harness-0.24.2/code_images.tgz"
-  "gs://smp-airgap-bundles/harness-0.24.2/ci_images.tgz" \
-  "gs://smp-airgap-bundles/harness-0.24.2/ff_images.tgz" \
-  "gs://smp-airgap-bundles/harness-0.24.2/platform_images.tgz" \
-  "gs://smp-airgap-bundles/harness-0.24.2/sto_images.tgz" \
+  "gs://smp-airgap-bundles/harness-0.24.3/ccm_images.tgz" \
+  "gs://smp-airgap-bundles/harness-0.24.3/cdng_images.tgz" \
+  "gs://smp-airgap-bundles/harness-0.24.3/ce_images.tgz" \
+  "gs://smp-airgap-bundles/harness-0.24.3/code_images.tgz"
+  "gs://smp-airgap-bundles/harness-0.24.3/ci_images.tgz" \
+  "gs://smp-airgap-bundles/harness-0.24.3/ff_images.tgz" \
+  "gs://smp-airgap-bundles/harness-0.24.3/platform_images.tgz" \
+  "gs://smp-airgap-bundles/harness-0.24.3/sto_images.tgz" \
   .
 ```
 
 ### Fixed issues
 
-#### Harness Platform
+#### Cloud Cost Management
 
 - Resolved issue with empty AWS account ID when using the LIKE operator. [CCM-20906]
 
