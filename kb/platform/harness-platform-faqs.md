@@ -3372,3 +3372,23 @@ Yes, Harness has an API to check the status of the deployment. You can check her
 
 ### How can user restart a delegate?
 User can restart the delegate by deleting the pod itself.
+
+### Encryption Certificate for SAML assertions certificate download
+For encryption certificates , you can download this from Harness UI under authentication, under saml provider. 
+
+### SAML encryption certificate
+This is optional and is used when you have this enabled at your SAML end.
+https://developer.harness.io/docs/platform/authentication/single-sign-on-saml/#use-encrypted-saml
+
+### API limit for Harness Platform: https://developer.harness.io/docs/platform/rate-limits/
+Any call: Harness allows 5000 requests every 10 seconds (30,000 requests per minute) per IP address.
+API calls: Harness allows 1000 requests per API key per minute.
+External API requests: 400 calls per minute per X-API-Key. 
+
+### Determine developer username for license check
+You can see this information from the subscriptions page under the module subscription. 
+
+
+
+
+
