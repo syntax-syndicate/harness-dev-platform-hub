@@ -2055,3 +2055,12 @@ Controlling the number of concurrently deployed services in a multi-service depl
 
 ### How can a user utilize a step template with a script to run across multiple hosts in parallel?
 Users migrating from Cloudbees can create multiple infrastructures with host names set as override variables. When selecting multiple infrastructures during execution, the pipeline runs the stage for each selected infrastructure.
+
+### What is the difference between writing value: apply and value: "apply.allowedValues(plan,apply)" in the YAML?
+If you write value: apply, the compiled YAML assumes that "apply" is the correct value without any validation. However, if you write value: "apply.allowedValues(plan,apply)", it ensures that the value is validated against a list of allowed values (in this case, plan and apply), and only those values will be accepted.
+
+### Why do we need to use allowedValues in the compiled YAML?
+Using allowedValues ensures that the value provided in the YAML follows specific constraints and is among the allowed options. This prevents invalid values (e.g., notApply) from being accepted during runtime.
+
+### What happens if we provide an invalid value (e.g., notApply) at runtime?
+If an invalid value, such as notApply, is provided at runtime, the validation will fail because it doesn't match any of the allowed values (like plan or apply) specified in the allowedValues expression.
