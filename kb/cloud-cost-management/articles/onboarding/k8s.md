@@ -70,7 +70,7 @@ For creating all your Kubernetes connectors it is recommended that you utilize [
 ```terraform
 # when using a delegate deployed into the cluster
 
-resource "harness_platform_connector_Kubernetes" "inheritFromDelegate" {
+resource "harness_platform_connector_kubernetes" "inheritFromDelegate" {
   identifier  = "inheritFromDelegate"
   name        = "inheritFromDelegate"
   description = "description"
@@ -93,14 +93,15 @@ For creating all your CCM Kubernetes connectors it is recommended that you utili
 At a minimum you need to enable `VISIBILITY`. If you are planning to perform auto stopping in this cluster, you can also enable `OPTIMIZATION`.
 
 ```terraform
-resource "harness_platform_connector_Kubernetes_cloud_cost" "inheritFromDelegateCCM" {
+resource "harness_platform_connector_kubernetes_cloud_cost" "inheritFromDelegateCCM" {
   identifier  = "inheritFromDelegateCCM"
   name        = "inheritFromDelegateCCM"
   description = "example"
   tags        = ["foo:bar"]
 
   features_enabled = ["VISIBILITY", "OPTIMIZATION"]
-  connector_ref    = "inheritFromDelegate"
+  # reference the k8s connector created above
+  connector_ref    = harness_platform_connector_kubernetes.inheritFromDelegate.id
 }
 ```
 
