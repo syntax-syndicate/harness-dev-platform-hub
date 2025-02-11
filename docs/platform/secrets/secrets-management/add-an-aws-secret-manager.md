@@ -210,9 +210,19 @@ When setting up your AWS Secrets Manager in Harness, you can choose one of the f
 
         - Refer to the **Secret Name Prefix** and **Region** settings described under the AWS Access Key section above.
 
-### Step 4: Setup Delegates
+### Step 4: Setup with or without Delegates
 
-  In **Setup Delegates,** enter [**Selectors**](../../delegates/manage-delegates/select-delegates-with-selectors.md#option-select-a-delegate-for-a-connector-using-tags) for specific **Delegates** that you want to allow to connect to this connector.
+<Tabs>
+
+  <TabItem value="withdelegate" label="Setup with Delegate" default>
+    In **Setup Delegates,** enter [**Selectors**](../../delegates/manage-delegates/select-delegates-with-selectors.md#option-select-a-delegate-for-a-connector-using-tags) for specific **Delegates** that you want to allow to connect to this connector.  
+  </TabItem>
+
+  <TabItem value="throughHarness" label="Setup using Harness Platform" default>
+    
+  </TabItem>
+
+</Tabs>
 
 ### Step 5: Test Connection
 
