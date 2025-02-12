@@ -45,7 +45,7 @@ import Kustomizedep from '/release-notes/shared/kustomize-3-4-5-deprecation-noti
 
 </details>
 
-## February 2024
+## February 2025
 
 ### Version 1.76.6
 
