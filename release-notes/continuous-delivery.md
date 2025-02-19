@@ -62,7 +62,7 @@ import Kustomizedep from '/release-notes/shared/kustomize-3-4-5-deprecation-noti
 - Previously, the Argo 2.13.2 binary upgrade made the project ID a mandatory field for using the repo APIs, causing agent creation to fail when the `skipCertificateValidation` flag was used. This issue is now fixed. (**CDS-106137**)
 - Previously, when an application was created with a cross project repository, the repo identifier was assigned from the wrong Harness project, causing an error. This is fixed now. (**CDS-104760**)
 
-### Version 1.77.5
+### Version 1.77.4
 
 #### New features and enhancements
 
