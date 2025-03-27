@@ -7,20 +7,18 @@ redirect_from:
 - /docs/chaos-engineering/features/image-registry
 - /docs/chaos-engineering/concepts/explore-concepts/image-registry
 ---
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
-This topic describes using an image registry within a chaos experiment.
+This topic describes an image registry, its configuration and usage within a chaos experiment.
 
-### What is an image registry?
+## What is an image registry?
 
-An image registry is a repository that hosts container images that are used by chaos experiments. Registries can be **public** or **private**. HCE allows you to use custom image registries for chaos experiments.
+An image registry is a repository that hosts container images that are used by chaos experiments. Registries can be **public** or **private**. Harness CE allows you to use custom image registries for chaos experiments.
 
 A custom image registry allows for storing container images securely, restricting access to authorized users and applications only.
 
 :::tip
 - You can configure the image registry to be used with the default probes. If you haven't configured a probe yet, the experiment will use the default image registry.
-- HCE doesn't provide image registry support at the moment for default probes.
+- Harness CE doesn't provide image registry support at the moment for default probes.
 :::
 
 Follow the steps below to use [custom values](#custom-values-for-image-registry) or [default values](#default-values-for-image-registry) of the image registry in your chaos experiment.
@@ -28,7 +26,7 @@ Follow the steps below to use [custom values](#custom-values-for-image-registry)
 
 [This](https://youtu.be/jpSd1nGf8s0) video provides a step-by-step walkthrough of configuring the Image Registry.
 
-### Why use a Custom Image Registry?
+## Why use a Custom Image Registry?
 
 When the image you need to use for your chaos experiment is private, and the chaos experiments are required to be run for internal consumption, you can configure image registry as **private** and provide custom values to it.
 This way, you will have better control, and security when working with private images.
@@ -39,8 +37,7 @@ Depending on whether you use DDCR (Delegate Driven Chaos Runner) or dedicated ch
 This feature is behind the feature flag `CHAOS_IMAGEREGISTRY_DEV`. Contact [Harness Support](mailto:support@harness.io) to enable the feature.
 :::
 
-<Tabs>
-<TabItem value = "Harness Delegate / DDCR">
+## Harness Delegate / DDCR
 
 ### Permissions Required
 
@@ -64,17 +61,22 @@ In this example, you will learn how to configure image registry from **Account S
     ![account settings](./static/image-registry/account-level.png)
 
 2. Provide registry details:
-  a. Specify the server and account name. 
-  b. Choose the image registry type. 
-  c. Enable **Allow Overrides** option if you want to allow changes to image registry settings at lower levels, such as Organization, Project, or Infrastructure.
-  For example, currently, you are in the **Account** scope. Allowing overrides will allow you to make changes to the image registry settings at the **Organization**, **Project**, and **infrastructure** levels.
+
+    a. Specify the server and account name. 
+
+    b. Choose the image registry type. 
+
+    c. Enable **Allow Overrides** option if you want to allow changes to image registry settings at lower levels, such as Organization, Project, or Infrastructure.
+
+    For example, currently, you are in the **Account** scope. Allowing overrides will allow you to make changes to the image registry settings at the **Organization**, **Project**, and **infrastructure** levels.
 
     ![override settings](./static/image-registry/override.png)
 
 3. Use Custom Images (Optional):
 
-  a. Enable **Use custom images** if you want to provide custom images for the specified fields.
-  b. Add your custom images in the fields shown in the screenshot.
+    a. Enable **Use custom images** if you want to provide custom images for the specified fields.
+    
+    b. Add your custom images in the fields shown in the screenshot.
 
     ![custom image settings](./static/image-registry/custom-img.png)
 
@@ -87,11 +89,13 @@ If you enable the **Allow Overrides** option, you can configure the image regist
   ![ir infra](./static/image-registry/ir-settings.png)
 :::
 
-</TabItem>
 
-<TabItem value = "Dedicated chaos infrastructure">
+## Dedicated chaos infrastructure
 
-## Custom values for image registry
+### Custom values for image registry
+
+Follow the steps below to configure an image registry with custom values when a [dedicated chaos infrastructure](/docs/chaos-engineering/use-harness-ce/infrastructures/types/legacy-infra/kubernetes) is used to execute a chaos experiment.
+
 ### Step 1: Navigate to Image Registry
 
 * To use a custom image, go to **Image Registry** on the left-hand side, and select **Use custom values**.
@@ -148,26 +152,22 @@ container:
   args:
     - kubectl apply -f /tmp/ -n {{workflow.parameters.adminModeNamespace}} && sleep 30
 ```
-</TabItem>
-</Tabs>
+
 
 ## Images required
 
 Listed below are images that you should download to use image registry. The example below describes images required for 1.53.x release. Based on the release, the version will vary.
 
-Refer to the [Delegate release](https://developer.harness.io/release-notes/delegate/) to download the latest version of Delegate and [Chaos Engineering](https://developer.harness.io/release-notes/chaos-engineering) to get the latest version of chaos component images, respectively.
+Refer to the [Delegate release](https://developer.harness.io/release-notes/delegate/) to download the latest version of Delegate and [Chaos Engineering Release Notes](https://developer.harness.io/release-notes/chaos-engineering) to get the latest version of chaos component images, respectively.
 
-<Tabs>
-<TabItem value = "Harness Delegate / DDCR">
+### Harness Delegate / DDCR
 
 - harness/chaos-ddcr:1.53.0
 - harness/chaos-log-watcher:1.53.0
 - harness/service-discovery-collector:0.33.0
 - docker.io/harness/chaos-ddcr-faults:1.53.0
 
-</TabItem>
-
-<TabItem value = "Dedicated Chaos Infrastructure">
+### Dedicated Chaos Infrastructure
 
 - harness/chaos-log-watcher:1.53.0
 - harness/chaos-workflow-controller:v3.4.16
@@ -178,8 +178,3 @@ Refer to the [Delegate release](https://developer.harness.io/release-notes/deleg
 - harness/chaos-subscriber:1.53.0
 - docker.io/harness/chaos-go-runner:1.53.0
 - harness/k8s-chaos-infrastructure-upgrader:1.53.0
-
-</TabItem>
-
-
-</Tabs>
